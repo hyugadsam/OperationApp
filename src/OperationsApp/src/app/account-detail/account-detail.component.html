@@ -1,0 +1,62 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="margin-top: 5%; margin-right: 5%;" >
+    <div class="container-fluid">
+      <a *ngIf='AccountToEdit.Accountid == 0' class="navbar-brand">New Account</a>
+      <a *ngIf='AccountToEdit.Accountid > 0' class="navbar-brand">Editing Account {{AccountToEdit.Accountid}} : {{AccountToEdit.AccountName}}</a>
+    </div>
+  </nav>
+
+<form style="margin-top: 1%; margin-right: 5%;" [formGroup]="myForm" class="needs-validation" novalidate>
+    <div class="mb-3">
+        <label for="AccountName" class="form-label">Account Name</label>
+        <input type="text" class="form-control" placeholder="Account Name" required appAutofocus formControlName="AccountName">
+          <div *ngIf='!myForm.controls.AccountName.valid && myForm.controls.AccountName.touched' class="alert alert-danger">
+            Account Name is required.
+          </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="ClientName" class="form-label">Email</label>
+        <input type="text" class="form-control" placeholder="Client Name" required appAutofocus formControlName="ClientName">
+          <div *ngIf='!myForm.controls.ClientName.valid && myForm.controls.ClientName.touched' class="alert alert-danger">
+            Client Name is required.
+          </div>
+      </div>
+
+      <div class="mb-3" >
+        <label for="OperatorName" class="form-label">User Name</label>
+        <input type="text" class="form-control" placeholder="Operator Name" required appAutofocus formControlName="OperatorName">
+          <div *ngIf='!myForm.controls.OperatorName.valid && myForm.controls.OperatorName.touched' class="alert alert-danger">
+            Operator Name is required.
+          </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="Teamid" class="form-label">Team</label>
+        <select formControlName="Teamid" class="form-select">
+            <!-- <option selected>Open this select menu</option> -->
+            <option *ngFor="let team of Teams" [value]="team.Teamid"> {{team.Name}} </option>
+          </select >
+          <div *ngIf='!myForm.controls.Teamid.valid && myForm.controls.Teamid.touched' class="alert alert-danger">
+            Team is required.
+          </div>
+      </div>
+
+
+      <div class="row" style="margin-top: 5%">
+        <div class="col-sm-2">
+            <button class="btn btn-primary" (click)='onClick()'>Save Changes</button>
+          </div>
+          <div class="col-sm-2">
+            <button class="btn btn-danger" (click)='Cancel()'>Cancel</button>
+          </div>
+
+          <div class="col-sm-6"></div>
+
+          <div class="col-sm-2" *ngIf='AccountToEdit.Accountid > 0 '>
+            <button class="btn btn-warning" (click)='Delete()'>Delete Account</button>
+          </div>
+
+      </div>
+
+</form>
+

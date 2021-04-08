@@ -1,0 +1,33 @@
+<div class="row" style="margin-top: 3%;">
+    <div class="col-sm-2">
+        <button class="btn btn-success" type="button" (click)='onClick(0)'>Create Account</button>
+    </div>
+</div>
+<div class="row" style="margin-top: 3%;">
+    <div class="col-sm-11">
+        <div class="form-control">
+            <table class="table" >
+                <thead>
+                <tr>
+                  <th scope="col">Account id</th>
+                  <th scope="col">Account</th>
+                  <th scope="col">Client</th>
+                  <th scope="col">Operator</th>
+                  <th scope="col">Team</th>
+                  <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor='let acc of Accounts'>
+                  <th scope="row">{{acc.Accountid}}</th>
+                  <td>{{acc.AccountName}}</td>
+                  <td>{{acc.ClientName}}</td>
+                  <td>{{acc.OperatorName}}</td>
+                  <td>{{acc.TeamName}}</td>
+                  <td><button class="btn btn-primary" type="button" (click)='onClick(acc.Accountid)'>Edit Account</button></td>
+                </tr>
+                </tbody>
+              </table>
+        </div>
+    </div>
+</div>

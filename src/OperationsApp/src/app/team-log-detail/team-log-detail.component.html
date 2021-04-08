@@ -1,0 +1,36 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="margin-top: 5%; margin-right: 5%;" >
+    <div class="container-fluid">
+      <a class="navbar-brand">Movement Detail {{InputLog.Teamid}} : {{InputLog.Name}}</a>
+    </div>
+  </nav>
+  
+  <div style="margin-top: 1%; margin-right: 5%;">
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="form-control">
+                <h1>Previus Users in this Team</h1>
+                <ul class="list-group">
+                    <li *ngFor="let u of InputLog.Users; let i = index" class="list-group-item list-group-item-success">{{u.UserLogin}} : {{u.FullName}}</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="form-control">
+                <h1>New Users in this Team</h1>
+                <ul class="list-group">
+                    <li *ngFor="let user of InputLog.NewUsers; let j = index" class="list-group-item list-group-item-info">{{user.UserLogin}} : {{user.FullName}}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row" style="margin-top: 5%">
+        <div class="col-sm-2">
+            <button class="btn btn-primary" (click)='onClick()'>Go Back</button>
+        </div>
+    </div>
+  
+</div>
+  
+  

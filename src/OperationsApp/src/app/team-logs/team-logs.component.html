@@ -1,0 +1,39 @@
+<div *ngIf='!(Log != null)'>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="margin-top: 4%; margin-right: 5%;" >
+        <div class="container-fluid">
+          <a class="navbar-brand">Teams Movement</a>
+        </div>
+      </nav>
+    <div class="form-group" style="margin-top: 2%; margin-right: 5%;">
+      <label class="form-label">Search Movements</label>
+      <input type="text" class="form-control" placeholder="Search Movements" [(ngModel)]="term">
+    </div>
+    <div class="row" style="margin-top: 3%;">
+        <div class="col-sm-11">
+            <div class="form-control">
+                <table class="table" >
+                    <thead>
+                    <tr>
+                      <th scope="col">Team id</th>
+                      <th scope="col">Team Name</th>
+                      <th scope="col">Date Of Movement</th>
+                      <th scope="col"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor='let team of TeamLogs | filter:term'>
+                      <!-- let j = index -->
+                      <th scope="row">{{team.Teamid}}</th>
+                      <td>{{team.Name}}</td>
+                      <td>{{team.DateOfMovement}}</td>
+                      <td><button class="btn btn-primary" type="button" (click)='onClick(team)'>View Detail</button></td>
+                    </tr>
+                    </tbody>
+                  </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf='(Log != null)'>
+ <app-team-log-detail [InputLog]='Log' (GoBack)='onGoBack($event)'></app-team-log-detail>
+</div>

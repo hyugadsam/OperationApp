@@ -1,0 +1,36 @@
+<div class="row" style="margin-top: 3%;">
+    <div class="col-sm-2">
+        <button class="btn btn-success" type="button" (click)='onClick(0)'>Create User</button>
+    </div>
+</div>
+<div class="row" style="margin-top: 3%;">
+    <div class="col-sm-11">
+        <div class="form-control">
+            <table class="table" >
+                <thead>
+                <tr>
+                  <th scope="col">User id</th>
+                  <th scope="col">User Name</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Role</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">InsertDate</th>
+                  <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor='let user of Users'>
+                  <th scope="row">{{user.Userid}}</th>
+                  <td>{{user.FullName}}</td>
+                  <td>{{user.UserLogin}}</td>
+                  <td>{{user.Description}}</td>
+                  <td>{{user.Email}}</td>
+                  <td>{{user.InsertDate}}</td>
+                  <td><button class="btn btn-primary" type="button" (click)='onClick(user.Userid)'>Edit User</button></td>
+                </tr>
+          
+                </tbody>
+              </table>
+        </div>
+    </div>
+</div>

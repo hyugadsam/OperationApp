@@ -1,0 +1,54 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="margin-top: 5%; margin-right: 5%;" >
+  <div class="container-fluid">
+    <a *ngIf='TeamToEdit.Teamid == 0' class="navbar-brand">New Team</a>
+    <a *ngIf='TeamToEdit.Teamid > 0' class="navbar-brand">Editing Team {{TeamToEdit.Teamid}} : {{TeamToEdit.Name}}</a>
+  </div>
+</nav>
+
+<form style="margin-top: 1%; margin-right: 5%;" [formGroup]="myForm" class="needs-validation" novalidate>
+    <div class="mb-3">
+        <label for="Name" class="form-label">Team Name</label>
+        <input type="text" class="form-control" placeholder="Team Name" required appAutofocus formControlName="Name">
+          <div *ngIf='!myForm.controls.Name.valid && myForm.controls.Name.touched' class="alert alert-danger">
+            Valid Name is required.
+          </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-lg-6">
+            <div class="form-control">
+                <h1>Users in this Team</h1>
+                <ul class="list-group">
+                    <li *ngFor="let u of TeamToEdit.Users; let i = index" class="list-group-item list-group-item-success" (click)='RemoveTeamUser(i)'>{{u.FullName}} <fa-icon [icon]="faHandPointRight"></fa-icon></li>
+                </ul>
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="form-control">
+                <h1>Another Users</h1>
+                <ul class="list-group">
+                    <li *ngFor="let user of Users; let j = index" class="list-group-item list-group-item-info" (click)='AddTeamUser(j)'><fa-icon [icon]="faHandPointLeft"></fa-icon> {{user.FullName}}</li>
+                </ul>
+            </div>
+          </div>
+      </div>
+      
+      <div class="row" style="margin-top: 5%">
+        <div class="col-sm-2">
+            <button class="btn btn-primary" (click)='onClick()'>Save Changes</button>
+          </div>
+          <div class="col-sm-2">
+            <button class="btn btn-danger" (click)='Cancel()'>Cancel</button>
+          </div>
+
+          <div class="col-sm-6"></div>
+
+          <div class="col-sm-2" *ngIf='TeamToEdit.Teamid > 0 '>
+            <button class="btn btn-warning" (click)='Delete()'>Delete Team</button>
+          </div>
+          
+      </div>
+
+</form>
+

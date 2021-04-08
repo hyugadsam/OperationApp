@@ -1,0 +1,78 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="margin-top: 5%; margin-right: 5%;" >
+  <div class="container-fluid">
+    <a *ngIf='userToEdit.Userid == 0' class="navbar-brand">New User</a>
+    <a *ngIf='userToEdit.Userid > 0' class="navbar-brand">Editing User {{userToEdit.Userid}} : {{userToEdit.FullName}}</a>
+  </div>
+</nav>
+
+<form style="margin-top: 1%; margin-right: 5%;" [formGroup]="myForm" class="needs-validation" novalidate>
+    <div class="mb-3">
+        <label for="FullName" class="form-label">Full Name</label>
+        <input type="text" class="form-control" placeholder="Full Name" required appAutofocus formControlName="FullName">
+          <div *ngIf='!myForm.controls.FullName.valid && myForm.controls.FullName.touched' class="alert alert-danger">
+            Valid Name is required.
+          </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="Email" class="form-label">Email</label>
+        <input type="email" class="form-control" placeholder="Email" required appAutofocus formControlName="Email">
+          <div *ngIf='!myForm.controls.Email.valid && myForm.controls.Email.touched' class="alert alert-danger">
+            Valid Email is required.
+          </div>
+      </div>
+
+      <div class="mb-3" >
+        <label for="UserLogin" class="form-label">User Name</label>
+        <input type="text" class="form-control" placeholder="User Name" required appAutofocus formControlName="UserLogin">
+          <div *ngIf='!myForm.controls.UserLogin.valid && myForm.controls.UserLogin.touched && userToEdit.Userid == 0' class="alert alert-danger">
+            Valid User Name is required.
+          </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="Roleid" class="form-label">Role</label>
+        <select formControlName="Roleid" class="form-select">
+            <!-- <option selected>Open this select menu</option> -->
+            <option *ngFor="let rol of Roles" [value]="rol"> {{FunctionalRolesNames[rol]}} </option>
+          </select >
+          <div *ngIf='!myForm.controls.Roleid.valid && myForm.controls.Roleid.touched' class="alert alert-danger">
+            Role is required.
+          </div>
+      </div>
+      
+
+      <div class="mb-3">
+        <label for="Password" class="form-label">Password</label>
+        <input type="password" class="form-control" placeholder="Password" required appAutofocus formControlName="Password">
+          <div *ngIf='!myForm.controls.Password.valid && myForm.controls.Password.touched && userToEdit.Userid == 0' class="alert alert-danger">
+            Password is required.
+          </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="ConfirmPassword" class="form-label">Confirm Password</label>
+        <input type="password" class="form-control" placeholder="ConfirmPassword" required appAutofocus formControlName="ConfirmPassword">
+          <div *ngIf='!myForm.controls.ConfirmPassword.valid && myForm.controls.ConfirmPassword.touched && userToEdit.Userid == 0' class="alert alert-danger">
+            Password confirmation is required.
+          </div>
+      </div>
+
+      <div class="row" style="margin-top: 5%">
+        <div class="col-sm-2">
+            <button class="btn btn-primary" (click)='onClick()'>Save Changes</button>
+          </div>
+          <div class="col-sm-2">
+            <button class="btn btn-danger" (click)='Cancel()'>Cancel</button>
+          </div>    
+
+          <div class="col-sm-6"></div>
+
+          <div class="col-sm-2" *ngIf='userToEdit.Userid > 0 '>
+            <button class="btn btn-warning" (click)='Delete()'>Delete User</button>
+          </div>
+
+      </div>
+
+</form>
+

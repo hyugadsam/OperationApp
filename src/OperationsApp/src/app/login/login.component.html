@@ -1,0 +1,25 @@
+<div style="width: 100%; height: 100%; ">
+    <div class="text-center mx-auto" style=" margin-top: 2.5%;  width: 50%;">
+        <main class="form-signin">
+           <form [formGroup]="myForm" >
+               <img class="mb-4" src="https://es.seaicons.com/wp-content/uploads/2016/11/Windows-Messenger-icon.png" alt="" width="20%" >
+               <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+       
+               <div class="form-floating mx-auto" style="width: 60%; margin-top: 1%;">
+                <input type="text" class="form-control" id="floatingInput" placeholder="User Name" required appAutofocus formControlName="UserName">
+                <label for="floatingInput">User Name</label>
+               </div>
+               <div class="form-floating mx-auto" style="width: 60%; margin-top: 1%;" >
+                <input type="password" class="form-control" id="floatingPassword" placeholder="Password" required appAutofocus formControlName="Password">
+                <label for="floatingPassword">Password</label>
+               </div>
+       
+               <div class="mx-auto" style="width: 30%; margin-top: 1%;">
+                   <button class="w-100 btn btn-lg btn-primary" (click)='onClick()'>Sign in</button>
+               </div>
+               <p class="mt-5 mb-3 text-muted">© 2021</p>
+               
+           </form>
+        </main>
+       </div>       
+</div>

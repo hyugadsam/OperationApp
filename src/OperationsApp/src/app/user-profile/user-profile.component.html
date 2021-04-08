@@ -1,0 +1,58 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="margin-top: 5%; margin-right: 5%;" >
+  <div class="container-fluid">
+    <a class="navbar-brand">Profile</a>
+  </div>
+</nav>
+
+<form style="margin-top: 1%; margin-right: 5%;" [formGroup]="myForm" class="needs-validation" novalidate>
+    <div class="mb-3">
+        <label for="FullName" class="form-label">Full Name</label>
+        <input type="text" class="form-control" placeholder="Name" required appAutofocus formControlName="FullName">
+          <div *ngIf='!myForm.controls.FullName.valid && myForm.controls.FullName.touched' class="alert alert-danger">
+            Valid name is required.
+          </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="Email" class="form-label">Email address</label>
+        <input type="email" class="form-control" id="Email" placeholder="name@arkusnexus.com" formControlName="Email">
+      </div>
+
+      <div class="mb-3">
+        <label for="EnglishLevel" class="form-label">English Level</label>
+        <input type="text" class="form-control" placeholder="English Level" required appAutofocus formControlName="EnglishLevel">
+        <div *ngIf='!myForm.controls.EnglishLevel.valid && myForm.controls.EnglishLevel.touched' class="alert alert-danger">
+          Valid English Level is required.
+        </div>
+      </div>
+      
+      <div class="mb-3">
+        <label for="KnowlEdge" class="form-label">Your KnowlEdge</label>
+        <textarea class="form-control" id="KnowlEdge" rows="3" required appAutofocus formControlName="KnowlEdge"></textarea>
+         <div *ngIf='!myForm.controls.KnowlEdge.valid && myForm.controls.KnowlEdge.touched' class="alert alert-danger">
+            Your KnowlEdge is required.
+          </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="UrlResume" class="form-label">Resume</label>
+        <input type="text" class="form-control" placeholder="Doc Url" required appAutofocus formControlName="UrlResume">
+          <div *ngIf='!myForm.controls.UrlResume.valid && myForm.controls.UrlResume.touched' class="alert alert-danger">
+            Your resume is required.
+          </div>
+      </div>
+
+      <!-- <div class="col-12">
+        <button class="btn btn-primary" (click)='onClick()'>Save Changes</button>
+      </div> -->
+
+      <div class="row" style="margin-top: 5%">
+        <div class="col-sm-2">
+            <button class="btn btn-primary" (click)='onClick()'>Save Changes</button>
+          </div>
+          <div class="col-sm-2">
+            <button class="btn btn-danger" (click)='Cancel()'>Cancel</button>
+          </div>    
+      </div>
+
+</form>

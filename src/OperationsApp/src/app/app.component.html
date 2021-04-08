@@ -1,0 +1,63 @@
+<div class="row">
+  <div *ngIf='!IsLoginView()' class="col-md-2" >
+    <div class="d-flex flex-column p-3 text-white bg-dark">
+      <a routerLink="/home" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+        <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+        <span class="fs-4">Operation App</span>
+      </a>
+      <hr>
+      <ul class="nav nav-pills flex-column mb-auto">
+        <li class="nav-item">
+          <a routerLink="/home" class="nav-link text-white" routerLinkActive="active">
+            <svg class="bi me-2" width="16" height="16"></svg>
+            Home
+          </a>
+        </li>
+        <li *ngIf='HasPermission("Profile")'>
+          <a routerLink="/profile"  class="nav-link text-white" routerLinkActive="active">
+            <svg class="bi me-2" width="16" height="16"></svg>
+            Profile
+          </a>
+        </li>
+        <li *ngIf='HasPermission("Users")'>
+          <a routerLink="/users"  class="nav-link text-white" routerLinkActive="active">
+            <svg class="bi me-2" width="16" height="16"></svg>
+            Users
+          </a>
+        </li>
+        <li *ngIf='HasPermission("Teams")'>
+          <a routerLink="/teams" class="nav-link text-white" routerLinkActive="active">
+            <svg class="bi me-2" width="16" height="16"></svg>
+            Teams
+          </a>
+        </li>
+        <li *ngIf='HasPermission("TeamLogs")'>
+          <a routerLink="/teamLogs" class="nav-link text-white" routerLinkActive="active">
+            <svg class="bi me-2" width="16" height="16"></svg>
+            Teams Movement 
+          </a>
+        </li>
+        <li *ngIf='HasPermission("Accounts")'>
+          <a routerLink="/account" class="nav-link text-white" routerLinkActive="active">
+            <svg class="bi me-2" width="16" height="16"></svg>
+            Accounts
+          </a>
+        </li>
+        <li>
+          <a routerLink="/home" class="nav-link text-white" (click)='LogOut()'>
+            <svg class="bi me-2" width="16" height="16"></svg>
+            LogOut
+          </a>
+        </li>
+
+      </ul>
+      <hr>
+    </div>
+  </div>
+  <!-- <div class='col-md-12'>
+    <router-outlet></router-outlet>
+  </div> -->
+  <div [ngClass]='RouterClass'>
+    <router-outlet></router-outlet>
+  </div>
+</div>
