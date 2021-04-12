@@ -44,7 +44,7 @@
 
       <div class="mb-3">
         <label for="Password" class="form-label">Password</label>
-        <input type="password" class="form-control" placeholder="Password" required appAutofocus formControlName="Password">
+        <input type="password" class="form-control" placeholder="Password" appAutofocus formControlName="Password">
           <div *ngIf='!myForm.controls.Password.valid && myForm.controls.Password.touched && userToEdit.Userid == 0' class="alert alert-danger">
             Password is required.
           </div>
@@ -52,7 +52,7 @@
 
       <div class="mb-3">
         <label for="ConfirmPassword" class="form-label">Confirm Password</label>
-        <input type="password" class="form-control" placeholder="ConfirmPassword" required appAutofocus formControlName="ConfirmPassword">
+        <input type="password" class="form-control" placeholder="ConfirmPassword" appAutofocus formControlName="ConfirmPassword">
           <div *ngIf='!myForm.controls.ConfirmPassword.valid && myForm.controls.ConfirmPassword.touched && userToEdit.Userid == 0' class="alert alert-danger">
             Password confirmation is required.
           </div>

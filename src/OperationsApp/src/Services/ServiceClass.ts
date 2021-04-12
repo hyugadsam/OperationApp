@@ -3,6 +3,7 @@ import { Globals } from '../General/Globals';
 import { Observable, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
 //import { catchError, map } from 'rxjs/operators';
 
@@ -18,16 +19,13 @@ export class ServiceClass{
 
     constructor(private _globals: Globals,
       private http:HttpClient,
-      private router:Router){
+      private router:Router,
+      private cookieService: CookieService){
 
     }
 
     LoginMethod(Method:string, parameters: any): Observable<any> {
         return this.http.post<any>(this._globals.Config.UrlService + Method, parameters, this.headerOptions);
-    }
-
-    getToken(): string{
-      return this._globals.User.Token;
     }
 
     goTo(ruta:string){
@@ -44,7 +42,7 @@ export class ServiceClass{
         let header = {
             headers: new HttpHeaders({
               'Content-Type': 'application/json; charset=UTF-8',
-              'Authorization': this.getToken(),
+              'Authorization': this._globals.User.Token,
               'cache-control': 'no-cache'
             })
         };
@@ -89,25 +87,43 @@ export class ServiceClass{
       return str;
     }
 
-    // getData(path: string, body?: object): Observable<CustomResponse> {
+
+    deleteToken() {
+      this.cookieService.delete(this._globals.Config.CookieName);
+    }
+  
+    setToken() {
+      this.cookieService.set(this._globals.Config.CookieName, JSON.stringify(this._globals.User), this._globals.User.TokenExpiration, '/');
+    }
+  
+    getToken(): boolean 
+    {
+      try{
+        if (this.cookieService.check(this._globals.Config.CookieName)) 
+        {
+          this._globals.User = JSON.parse(this.cookieService.get(this._globals.Config.CookieName));
+          return true;
+        }
+        else
+        {
+          return false;
+        }
+      }
+      catch(ex){
+        console.log(ex);
+      }
+
+    }
+
+    validateToken(): boolean {
+      
+      if (this.cookieService.check(this._globals.Config.CookieName)) {
+        return true;
+      } else {
         
-    //     const headerOptions = {
-    //       headers: new HttpHeaders({
-    //         'Content-Type': 'application/json; charset=UTF-8',
-    //         // 'Authorization': 'Bearer ' + this.getToken(),
-    //         'cache-control': 'no-cache'
-    //       })
-    //     };
-    //     return this.http
-    //       .post<CustomResponse>(this.globals.externalServiceURL + path, body, headerOptions)
-    //       .pipe(
-    //         timeout(30000),
-    //         map(data => this.customResponse(data)),
-    //         catchError(this.handleError)
-    //       );
-    //   }
-
+        this,this.deleteToken();
+        return false;
+      }
+    }
     
-
-
 }

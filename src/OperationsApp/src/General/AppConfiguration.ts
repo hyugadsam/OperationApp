@@ -2,4 +2,7 @@
 export class AppConfiguration{
     UrlService:string = '';
     AnotherProperty:string = '';
+    CookieName:string = '';
+    MinCheckCookie:number = 5;
+    TokenExpirationTime:number = 10;
 }

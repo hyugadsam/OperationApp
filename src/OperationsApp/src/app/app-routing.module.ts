@@ -10,19 +10,20 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { PermissionGuardGuard } from './permission-guard.guard';
 
 const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: 'home' },
   {path: 'login', component: LoginComponent},
   {path: 'home', component: HomeComponent},
-  {path: 'users', component: UsersComponent},
-  {path: 'userDetail/:Userid', component: UserDetailComponent},
-  {path: 'teams', component:TeamsComponent},
-  {path: 'teamLogs', component:TeamLogsComponent},
-  {path: 'teamDetail/:Teamid', component:TeamDetailComponent},
-  {path: 'account', component:AccountsComponent},
-  {path: 'accountDetail/:Accountid', component:AccountDetailComponent},
-  {path: 'profile', component: UserProfileComponent},
+  {path: 'users', component: UsersComponent, canActivate:[PermissionGuardGuard]},
+  {path: 'userDetail/:Userid', component: UserDetailComponent, canActivate:[PermissionGuardGuard]},
+  {path: 'teams', component:TeamsComponent, canActivate:[PermissionGuardGuard]},
+  {path: 'teamLogs', component:TeamLogsComponent, canActivate:[PermissionGuardGuard]},
+  {path: 'teamDetail/:Teamid', component:TeamDetailComponent, canActivate:[PermissionGuardGuard]},
+  {path: 'account', component:AccountsComponent, canActivate:[PermissionGuardGuard]},
+  {path: 'accountDetail/:Accountid', component:AccountDetailComponent, canActivate:[PermissionGuardGuard]},
+  {path: 'profile', component: UserProfileComponent, canActivate:[PermissionGuardGuard]},
 
   {path:'**', pathMatch: 'full', redirectTo: 'home'}
 ];

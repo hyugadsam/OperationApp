@@ -1,24 +1,26 @@
 import { UserInfo } from './UserInfo';
 import { Injectable } from '@angular/core';
 import { AppConfiguration } from './AppConfiguration';
-import { HttpClient } from '@angular/common/http';
+
 
 
 @Injectable()
 export class Globals{
     Config: AppConfiguration = new AppConfiguration();
     User:UserInfo = new UserInfo();
+    AdminPermisions:string[] = ['Account', 'Teams', 'Users', 'Profile', 'TeamLogs', 'userDetail', 'teamDetail', 'accountDetail'];
+    FinalUserPermisions:string[]= ['Profile'];
 
-    constructor(private http: HttpClient){
+    // constructor(private http: HttpClient){
 
-        const jsonFile:string = './webConfig.json';
-        this.http.get(jsonFile).toPromise().then((response: any) => {
-            this.FillConfig(response);
-        }).catch(error => {
-            console.log(error);
-        });
+    //     // const jsonFile:string = './webConfig.json';
+    //     // this.http.get(jsonFile).toPromise().then((response: any) => {
+    //     //     this.FillConfig(response);
+    //     // }).catch(error => {
+    //     //     console.log(error);
+    //     // });
 
-    }
+    // }
 
     FillConfig(obj: any){
         if(obj == null)
@@ -29,7 +31,6 @@ export class Globals{
                 this.Config[key] = obj[key];
             }
         });
-
     }
 
 }

@@ -50,7 +50,7 @@ export class TeamDetailComponent implements OnInit {
           {
               this.service.ConsumeWebMethod('Get', Methods.GetTeam, {Teamid: this.TeamToEdit.Teamid} ).subscribe(r => 
               {
-                console.log(r);
+                //console.log(r);
                 this.TeamToEdit = new TeamModel();
                 if(r != null && r.isSaved)
                 {
@@ -102,7 +102,7 @@ export class TeamDetailComponent implements OnInit {
     };
 
     this.service.ConsumeWebMethod('Post', Methods.SaveTeam, request).subscribe(r =>{
-      console.log(r);
+      //console.log(r);
       if(r != null && r.isSaved){
         this.ShowSuccessMesasge('Team Saved');
         this.service.goTo('/teams');

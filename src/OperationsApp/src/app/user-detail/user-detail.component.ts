@@ -32,7 +32,7 @@ export class UserDetailComponent implements OnInit {
 
       this.userToEdit.Userid=params?.Userid <= 0 ? 0 : params?.Userid;
 
-      this.FillFormForNew();
+      this.FillForm(false, Validators.required);
 
       if(this.userToEdit.Userid > 0){
           this.service.ConsumeWebMethod('Get', Methods.GetUser, {id: this.userToEdit.Userid} ).toPromise()
@@ -41,16 +41,10 @@ export class UserDetailComponent implements OnInit {
             if(r != null && r.isSaved){
                 this.userToEdit = r.UsersList[0];
 
-                this.FillFormForEdit();
+                this.FillForm(true);
 
                 setTimeout(() => {
-                  console.log('timeOut');
                   this.myForm.controls.UserLogin.disable();
-                  this.myForm.controls.Password.clearValidators();
-                  this.myForm.controls.ConfirmPassword.clearValidators();
-                  this.myForm.controls.Password.clearAsyncValidators()
-                  this.myForm.controls.ConfirmPassword.clearAsyncValidators();
-                  console.log('timeOut2');
                 }, 400);
 
             }else{
@@ -68,27 +62,14 @@ export class UserDetailComponent implements OnInit {
     
   }
 
-  FillFormForEdit(){
-    this.myForm = null;
+  FillForm(disableUserLogin:boolean, validPass?:Validators){
     this.myForm = this.fb.group({
       FullName: new FormControl({ value: this.userToEdit.FullName, disabled: false }, [Validators.required]),
       Email: new FormControl({ value: this.userToEdit.Email, disabled: false }, [Validators.required]),
       Roleid: new FormControl({ value: this.userToEdit.Roleid, disabled: false }, [Validators.required]),
-      UserLogin: new FormControl({ value: this.userToEdit.UserLogin, disabled: true }),
-      Password: new FormControl({ value: '', disabled: false }),
-      ConfirmPassword: new FormControl({ value: '', disabled: false }),
-    });
-  }
-
-  FillFormForNew(){
-    
-    this.myForm = this.fb.group({
-      FullName: new FormControl({ value: this.userToEdit.FullName, disabled: false }, [Validators.required]),
-      Email: new FormControl({ value: this.userToEdit.Email, disabled: false }, [Validators.required]),
-      Roleid: new FormControl({ value: this.userToEdit.Roleid, disabled: false }, [Validators.required]),
-      UserLogin: new FormControl({ value: this.userToEdit.UserLogin, disabled: false }),
-      Password: new FormControl({ value: '', disabled: false }, [Validators.required]),
-      ConfirmPassword: new FormControl({ value: '', disabled: false }, [Validators.required]),
+      UserLogin: new FormControl({ value: this.userToEdit.UserLogin, disabled: disableUserLogin }),
+      Password: new FormControl({ value: '', disabled: false }, validPass),
+      ConfirmPassword: new FormControl({ value: '', disabled: false }, validPass),
     });
   }
 

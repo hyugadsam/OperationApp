@@ -38,7 +38,7 @@ export class UserProfileComponent implements OnInit {
         if(r != null && r.isSaved){
             this.userToEdit = r.UsersList[0];
 
-            console.log(r.UsersList[0]);
+            //console.log(r.UsersList[0]);
             
             this.myForm = this.fb.group({
               FullName: new FormControl({ value: this.userToEdit.FullName, disabled: false }, [Validators.required]),

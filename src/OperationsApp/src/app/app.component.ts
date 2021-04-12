@@ -1,8 +1,9 @@
 import { UserInfo } from 'src/General/UserInfo';
 import { Globals } from './../General/Globals';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ServiceClass } from 'src/Services/ServiceClass';
 import { AllRoles } from 'src/General/Enumerators';
+import { WebConfig } from 'src/Services/webconfig.provider';
 
 @Component({
   selector: 'app-root',
@@ -12,28 +13,44 @@ import { AllRoles } from 'src/General/Enumerators';
 
 export class AppComponent {
   title = 'Operations Site';
-  AdminPermisions:string[];
-  FinalUserPermisions:string[];
+  
   RouterClass:string = 'col-md-12';
 
   constructor(private service:ServiceClass,
-              private _globals:Globals)
+              private _globals:Globals,
+              private webc: WebConfig)
   {
-    this.AdminPermisions = ['Accounts', 'Teams', 'Users', 'Profile', 'TeamLogs']
-    this.FinalUserPermisions = ['Profile']
+
+  }
+
+  ngOnInit(){
+    this._globals.FillConfig(this.webc.getSettings());
+    if(this.service.getToken()){
+      this.service.goTo('/home');
+    }else{
+      this.service.goTo('/login');
+    }
+
+    setInterval(() => {
+      // console.log('Timer Session')
+      if(!this.service.validateToken()){
+        this.service.goTo('/login');
+      }
+    }, this._globals.Config.MinCheckCookie * 60000);
   }
 
 
   HasPermission(Page: string):boolean{
+    //return true;
     switch(this._globals.User?.user?.Roleid){
       case AllRoles.SuperAdmin:
       case AllRoles.Admin:
       {
-        return this.AdminPermisions.includes(Page);
+        return this._globals.AdminPermisions.includes(Page);
       }
       case AllRoles.FinalUser:
       {
-        return this.FinalUserPermisions.includes(Page);
+        return this._globals.FinalUserPermisions.includes(Page);
       }
       default:
       {
@@ -51,6 +68,7 @@ export class AppComponent {
   }
 
   LogOut(){
+    this.service.deleteToken();
     this._globals.User = new UserInfo(); //Borramos los datos del usuarios
     this.service.goTo('/login');
   }

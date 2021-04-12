@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -21,6 +21,11 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TeamLogsComponent } from './team-logs/team-logs.component';
 import { TeamLogDetailComponent } from './team-log-detail/team-log-detail.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { WebConfig } from 'src/Services/webconfig.provider';
+
+export function configProvider(provider: WebConfig) {
+  return () => provider.load();
+}
 
 @NgModule({
   declarations: [
@@ -47,9 +52,11 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     Ng2SearchPipeModule
   ],
   providers: [
+    WebConfig,
+    {provide: APP_INITIALIZER, useFactory: configProvider, deps: [WebConfig], multi: true },
     ServiceClass,
     Globals,
-    UserInfo
+    UserInfo,
   ],
   bootstrap: [AppComponent]
 })

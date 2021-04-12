@@ -44,7 +44,8 @@ export class LoginComponent implements OnInit {
         Password: this.myForm.value.Password,
     };
 
-    this.logging.LoginMethod(Methods.Authenticate.toString(), request).subscribe(r => {
+    this.logging.LoginMethod(Methods.Authenticate.toString(), request).toPromise().then(r => {
+      this.logging.deleteToken();
       //console.log(this._globals.User);
       if(r.isSaved){
           this._globals.User = new UserInfo();
@@ -52,9 +53,9 @@ export class LoginComponent implements OnInit {
           this._globals.User.user = r.UserLogged;
 
           let fecha:Date = new Date();
-          let minutesToAdd:number = 30;
-          this._globals.User.TokenExpiration = new Date(fecha.getTime() + minutesToAdd*60000);
+          this._globals.User.TokenExpiration = new Date(fecha.getTime() + this._globals.Config.TokenExpirationTime * 60000);
           //console.log(this._globals.User);
+          this.logging.setToken();
           this.logging.goTo('/home')
       }
       else{
@@ -67,6 +68,16 @@ export class LoginComponent implements OnInit {
         });
       }
       
+    })
+    .catch(ex =>{
+      console.log(ex);
+      Swal.fire({
+        position: 'center',
+        icon: 'warning',
+        title: 'Error in login',
+        showConfirmButton: false,
+        timer: 2500
+      });
     });
 
   }
