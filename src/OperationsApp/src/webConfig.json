@@ -1,5 +1,5 @@
 {
-    "UrlService" : "http://localhost:44354/",
+    "UrlService" : "http://localhost:40776/",
     "CookieName" : "CookieNameSession",
     "AnotherProperty" : "Another Value",
     "MinCheckCookie" : 1,

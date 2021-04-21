@@ -42,7 +42,7 @@ export class ServiceClass{
         let header = {
             headers: new HttpHeaders({
               'Content-Type': 'application/json; charset=UTF-8',
-              'Authorization': this._globals.User.Token,
+              'Authorization': 'Bearer ' + this._globals.User.Token,
               'cache-control': 'no-cache'
             })
         };
